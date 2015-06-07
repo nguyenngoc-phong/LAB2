@@ -66,7 +66,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	public void propertyChange(PropertyChangeEvent arg0) {
 		if(arg0.getPropertyName().equals("ENVOIE-FORME")) {
 			gestionFormes.ajouterForme((String) arg0.getNewValue()); // Envoie la chaîne contenant les paramètres de la forme reçu du serveur à gestionFormes pour celle-ci l'ajoute au tableau des formes
-			fenetreFormes.dessinerFormes(gestionFormes.getListeFormes()); // Redessine les formes dans le tableau de gestionFormes
+			fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete()); // Redessine les formes dans le tableau de gestionFormes
 		}
 	}
 }

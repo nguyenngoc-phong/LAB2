@@ -23,9 +23,9 @@ import ca.etsmtl.log.util.IDLogger;
  */
 public class GestionFormes {
 	private CreationFormes creationFormes;
-	private Forme[] listeFormes;
+	private Noeud noeudTete;
 	private final int MAX_FORMES = 10;
-	private int i;
+	private int nbNoeuds;
 	private IDLogger logger;
 	
 	/**
@@ -33,8 +33,8 @@ public class GestionFormes {
 	 */
 	public GestionFormes() {
 		creationFormes = new CreationFormes();
-		listeFormes = new Forme[MAX_FORMES];
-		i = 0;
+		noeudTete = null;
+		nbNoeuds = 0;
 		logger = IDLogger.getInstance();
 	}
 	
@@ -43,28 +43,34 @@ public class GestionFormes {
 	 * @param chaineIn : chaîne de caractères contenant les paramètre de la nouvelle forme
 	 */
 	public void ajouterForme(String chaineIn) {
-		Forme f = creationFormes.creerForme(chaineIn);
+		Forme forme = creationFormes.creerForme(chaineIn);
 		
-		// Ajoute la nouvelle forme à la fin du tableau en décalant les formes déjà présentes vers la gauche
-		if(i == MAX_FORMES) {
-			for (int j = 0; j < MAX_FORMES - 1; j++) {
-				listeFormes[j] = listeFormes[j + 1];
-			}
-			listeFormes[MAX_FORMES - 1] = f;
+		if (noeudTete == null) {
+			noeudTete = new Noeud(forme);
 		}
 		else {
-			listeFormes[i] = f;
-			i++;
+			Noeud n = noeudTete;
+			while (n.noeudSuivant() != null) {
+				n = n.noeudSuivant();
+			}
+			n.setNoeudSuivant(new Noeud(forme));
 		}
 		
-		logger.logID(f.getNseq());
+		if (nbNoeuds < MAX_FORMES) {
+			nbNoeuds++;
+		}
+		else {
+			noeudTete = noeudTete.noeudSuivant();
+		}
+		
+		logger.logID(forme.getNseq());
 	}
 
 	/**
 	 * Accesseur du clone du tableau de formes listeFormes[]
 	 * @return Un clone du tableau de formes listeFormes[]
 	 */
-	public Forme[] getListeFormes() {
-		return listeFormes.clone();
+	public Noeud getNoeudTete() {
+		return noeudTete;
 	}
 }
