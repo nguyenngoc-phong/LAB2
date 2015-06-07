@@ -30,21 +30,21 @@ public class FenetreFormes extends JComponent{
 	public static final Dimension dimension = new Dimension(500,500);
 	
 	// Tableau de formes
-	private static Forme[] listeFormes;
-	private static final int MAX_FORMES = 10;
+	private static Noeud noeudTete = null;
 		
 	/**
 	 * Constructeur
 	 */
 	public FenetreFormes(){
-		listeFormes = new Forme[MAX_FORMES];
 	}
 	
 	/*
 	 * Affiche la liste de formes 
 	 */
 	public void paintComponent(Graphics g){
-		for (Forme f : listeFormes) {
+		Noeud n = noeudTete;
+		while (n != null) {
+			Forme f = n.getForme();
 			
 			// Vérifie quel sous-classe de Forme est la forme f.
 			if(f instanceof Carre) {
@@ -72,6 +72,8 @@ public class FenetreFormes extends JComponent{
 				g.setColor(l.getCouleur());
 				g.drawLine(l.getCoord1().x, l.getCoord1().y, l.getCoord2().x, l.getCoord2().y);
 			}
+			
+			n = n.noeudSuivant();
 		}
 	}
 	
@@ -79,8 +81,8 @@ public class FenetreFormes extends JComponent{
 	 * Remplace l'attribut listeFormes par celui reçu de FenetreFormes et dessine les formes dans cette première
 	 * @param listeFormes : le tableau de formes reçu de FenetrePrincipale
 	 */
-	public void dessinerFormes(Forme[] listeFormes){
-		this.listeFormes = listeFormes;
+	public void dessinerFormes(Noeud noeudTete){
+		this.noeudTete = noeudTete;
 		repaint();
 	}
 	
