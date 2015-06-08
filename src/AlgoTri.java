@@ -1,4 +1,19 @@
+/******************************************************
+Cours:  LOG121
+Projet: Laboratoire #2
+Nom du fichier: AlgoTri.java
+Date crÃ©Ã©: 2013-06-07
+*******************************************************
+Le code de cette classe est basé sur l'exemple d'algorithme de tri de liste chaînée sur Internet de Program Creek sur la page suivante :
 
+http://www.programcreek.com/2012/11/leetcode-solution-merge-sort-linkedlist-in-java/
+
+*******************************************************
+Historique des modifications
+*******************************************************
+*@author Ngoc-Phong Nguyen
+2013-06-07 Version initiale
+*******************************************************/  
 public class AlgoTri {
 	private String choixTri;
 	private boolean triInverse;
