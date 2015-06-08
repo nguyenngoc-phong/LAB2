@@ -51,6 +51,7 @@ public class Carre extends Forme{
 	 * Accesseur de la largeur du carré 
 	 * @return La largeur du carré 
 	 */
+	@Override
 	public int getLargeur() {
 		return largeur;
 	}
@@ -59,7 +60,26 @@ public class Carre extends Forme{
 	 * Accesseur de la hauteur du carré 
 	 * @return La hauteur du carré 
 	 */
+	@Override
 	public int getHauteur() {
 		return hauteur;
+	}
+	
+	/**
+	 * Accesseur de l'aire du carré 
+	 * @return L'aire du carré 
+	 */
+	@Override
+	public double getAire() {
+		return largeur * hauteur;
+	}
+	
+	/**
+	 * Accesseur de la plus grande distance entre deux points du carré 
+	 * @return La plus grande distance entre deux points du carré 
+	 */
+	@Override
+	public double getPlusGrandeDistance() {
+		return Math.sqrt(Math.pow(largeur, 2) + Math.pow(hauteur, 2));
 	}
 }

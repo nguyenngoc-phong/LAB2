@@ -10,6 +10,7 @@ Historique des modifications
 2015-05-13 Version initiale
 *******************************************************/
 import java.awt.Color;
+import java.awt.Point;
 
 /**
  * Cette classe s'occupe des formes en général et c'est elle dont tous les autres classes "forme" hérite.
@@ -35,4 +36,9 @@ public abstract class Forme {
 	public Color getCouleur() {
 		return couleur;
 	}
+	
+	public abstract int getLargeur();
+	public abstract int getHauteur();
+	public abstract double getAire();
+	public abstract double getPlusGrandeDistance();
 }

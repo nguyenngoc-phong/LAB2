@@ -61,4 +61,37 @@ public class Ovale extends Forme{
 	public int getRayonV() {
 		return rayonV;
 	}
+	
+	/**
+	 * Accesseur de l'aire de l'ovale
+	 * @return L'aire de l'ovale
+	 */
+	@Override
+	public double getAire() {
+		return Math.PI * rayonH * rayonV;
+	}
+	
+	/**
+	 * Accesseur de la plus grande distance entre deux points de l'ovale
+	 * @return La plus grande distance entre deux points de l'ovale
+	 */
+	@Override
+	public double getPlusGrandeDistance() {
+		if (rayonH > rayonV) {
+			return 2 * rayonH;
+		}
+		else {
+			return 2 * rayonV;
+		}
+	}
+
+	@Override
+	public int getLargeur() {
+		return 2 * rayonH;
+	}
+
+	@Override
+	public int getHauteur() {
+		return 2 * rayonV;
+	}
 }

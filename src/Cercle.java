@@ -50,4 +50,32 @@ public class Cercle extends Forme{
 	public int getRayon() {
 		return rayon;
 	}
+	
+	/**
+	 * Accesseur de l'aire du cercle
+	 * @return L'aire du cercle
+	 */
+	@Override
+	public double getAire() {
+		return Math.PI * Math.pow(rayon, 2);
+	}
+	
+	/**
+	 * Accesseur de la plus grande distance entre deux points du cercle
+	 * @return La plus grande distance entre deux points du cercle
+	 */
+	@Override
+	public double getPlusGrandeDistance() {
+		return 2 * rayon;
+	}
+
+	@Override
+	public int getLargeur() {
+		return 2 * rayon;
+	}
+
+	@Override
+	public int getHauteur() {
+		return 2 * rayon;
+	}
 }

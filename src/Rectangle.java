@@ -51,6 +51,7 @@ public class Rectangle extends Forme{
 	 * Accesseur de la largeur du rectangle
 	 * @return La largeur du rectangle
 	 */
+	@Override
 	public int getLargeur() {
 		return largeur;
 	}
@@ -59,7 +60,26 @@ public class Rectangle extends Forme{
 	 * Accesseur de la hauteur du rectangle
 	 * @return La hauteur du rectangle
 	 */
+	@Override
 	public int getHauteur() {
 		return hauteur;
+	}
+	
+	/**
+	 * Accesseur de l'aire du rectangle
+	 * @return L'aire du rectangle
+	 */
+	@Override
+	public double getAire() {
+		return largeur * hauteur;
+	}
+	
+	/**
+	 * Accesseur de la plus grande distance entre deux points du rectangle
+	 * @return La plus grande distance entre deux points du rectangle
+	 */
+	@Override
+	public double getPlusGrandeDistance() {
+		return Math.sqrt(Math.pow(largeur, 2) + Math.pow(hauteur, 2));
 	}
 }

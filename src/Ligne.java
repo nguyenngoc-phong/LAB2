@@ -37,18 +37,48 @@ public class Ligne extends Forme {
 	}
 	
 	/**
-	 * Accesseur de la coordonnée(x,y) du début de la ligne
-	 * @return La coordonnée(x,y) du début de la ligne
+	 * Accesseur de la coordonnée(x,y) du début de la ligne.
+	 * @return La coordonnée(x,y) du début de la ligne.
 	 */
 	public Point getCoord1() {
 		return (Point) coord1.clone();
 	}
 	
 	/**
-	 * Accesseur de la coordonnée(x,y) de la fin de la ligne
-	 * @return La coordonnée(x,y) de la fin de la ligne
+	 * Accesseur de la coordonnée(x,y) de la fin de la ligne.
+	 * @return La coordonnée(x,y) de la fin de la ligne.
 	 */
 	public Point getCoord2() {
 		return (Point) coord2.clone();
+	}
+	
+	/**
+	 * Accesseur de l'aire de la ligne.
+	 * Son aire est �gale � sa longueur * 1 pixel.
+	 * @return L'aire de la ligne
+	 */
+	@Override
+	public double getAire() {
+		return getPlusGrandeDistance();
+	}
+	
+	/**
+	 * Accesseur de la plus grande distance entre deux points de la ligne.
+	 * En d'autres mots, cette m�thode retourne la longueur de la ligne.
+	 * @return La plus grande distance entre deux points de la ligne
+	 */
+	@Override
+	public double getPlusGrandeDistance() {
+		return Math.sqrt(Math.pow(coord2.x - coord1.x, 2) + Math.pow(coord2.y - coord1.y, 2));
+	}
+
+	@Override
+	public int getLargeur() {
+		return Math.abs(coord2.x - coord1.x);
+	}
+
+	@Override
+	public int getHauteur() {
+		return Math.abs(coord2.y - coord1.y);
 	}
 }

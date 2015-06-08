@@ -24,9 +24,11 @@ import ca.etsmtl.log.util.IDLogger;
 public class GestionFormes {
 	private CreationFormes creationFormes;
 	private Noeud noeudTete;
+	private Noeud noeudTeteInitial;
 	private final int MAX_FORMES = 10;
 	private int nbNoeuds;
 	private IDLogger logger;
+	private AlgoTri algoTri;
 	
 	/**
 	 * Constructeur
@@ -36,6 +38,7 @@ public class GestionFormes {
 		noeudTete = null;
 		nbNoeuds = 0;
 		logger = IDLogger.getInstance();
+		algoTri = new AlgoTri();
 	}
 	
 	/**
@@ -64,6 +67,14 @@ public class GestionFormes {
 		}
 		
 		logger.logID(forme.getNseq());
+	}
+	
+	public void trierNoeuds(String choixTri, boolean triInverse) {
+		if(noeudTeteInitial == null) {
+			noeudTeteInitial = noeudTete;
+		}
+		
+		noeudTete = algoTri.trier(noeudTete, choixTri, triInverse);
 	}
 
 	/**
