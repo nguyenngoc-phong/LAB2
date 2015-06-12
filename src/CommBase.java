@@ -120,6 +120,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par ordre de séquence croissant
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParNumSeqCroissant(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 1); 
@@ -132,6 +133,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par ordre de séquence décroissant
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParNumSeqDecroissant(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 2); 
@@ -144,6 +146,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par aire de forme croissante
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParAireCroissant(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 3); 
@@ -155,6 +158,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par aire de forme decroissante
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParAireDecroissant(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 4); 
@@ -166,6 +170,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par type de forme dans un certain ordre
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParTypeForme(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 5); 
@@ -177,6 +182,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par type de forme dans l'ordre inverse
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParTypeFormeInverse(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 6); 
@@ -188,6 +194,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par distance croissante maximale
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParDistanceCroissante(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 7); 
@@ -200,6 +207,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par type de forme dans un certain ordre
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParLargeur(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 8); 
@@ -211,6 +219,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par type de forme dans l'ordre inverse
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParLargeurInverse(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 9); 
@@ -222,6 +231,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par distance croissante maximale
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParHauteur(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 10); 
@@ -233,6 +243,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par distance croissante maximale
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParHauteurInverse(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 11); 
@@ -244,6 +255,7 @@ public class CommBase {
 	 * afin que les formes soient affichées  par distance croissante maximale
 	 * @author: Fabeleu Carole
 	 */
+	@Deprecated
 	public void afficherParOrdreOriginal(){
 		if(listener!=null) {
 			threadComm.firePropertyChange("TRI", null, 12); 

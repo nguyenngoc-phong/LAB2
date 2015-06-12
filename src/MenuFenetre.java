@@ -62,7 +62,10 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 	private JMenu fichier, ordre;
 	private JMenuItem obtenirFormesMenuItem;
 	private JRadioButtonMenuItem br1, br2, br3, br4, br5, br6, br7, br8, br9, br10, br11, br12, item;
-	 CommBase comm; // Pour activer/dÃ©sactiver la communication avec le serveur
+	
+	CommBase comm; // Pour activer/dÃ©sactiver la communication avec le serveur
+	
+	private PropertyChangeListener listener = null;
 	
 	/**
 	 * Constructeur
@@ -92,8 +95,6 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 					br12.setSelected(true);
 				}
 				rafraichirMenus();
-			    
-				
 			}
 			
 		});
@@ -123,7 +124,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 			
 			br1.addActionListener(new ActionListener(){
 		  public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParNumSeqCroissant();  //methode pour afficher les formes par numero de séquence croissant
+			  firePropertyChange("TRI", "TriNseq", false);
+			// comm.afficherParNumSeqCroissant();  //methode pour afficher les formes par numero de séquence croissant
 			
 		  }
 		});
@@ -132,7 +134,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 			
 			br2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParNumSeqDecroissant();       //methode pour afficher les formes par numero de séquence décroissant
+				firePropertyChange("TRI", "TriNseq", true);
+			// comm.afficherParNumSeqDecroissant();       //methode pour afficher les formes par numero de séquence décroissant
 			
 		    }
 	    });
@@ -141,7 +144,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 			
 			br3.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParAireCroissant();   //methode pour afficher les formes par aire de  forme croissante
+				  firePropertyChange("TRI", "TriAire", false);
+			//comm.afficherParAireCroissant();   //methode pour afficher les formes par aire de  forme croissante
 			
 		    }
 	    });	
@@ -150,7 +154,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 		
 			br4.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParAireDecroissant();         //methode pour afficher les formes par aire de  forme décroissante
+				  firePropertyChange("TRI", "TriAire", true);
+			//comm.afficherParAireDecroissant();         //methode pour afficher les formes par aire de  forme décroissante
 			
 		    }
 	    });
@@ -159,7 +164,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 			
 			br5.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParTypeForme();			 //methode pour afficher les formes par type de formes par ordre
+				  firePropertyChange("TRI", "TriTypeForme", false);
+			//comm.afficherParTypeForme();			 //methode pour afficher les formes par type de formes par ordre
 			
 		    }
 	    });
@@ -168,7 +174,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 			
 			br6.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParTypeFormeInverse();			 //methode pour afficher les formes par type de forme dans l'ordre inverse
+				  firePropertyChange("TRI", "TriTypeForme", true);
+			// comm.afficherParTypeFormeInverse();			 //methode pour afficher les formes par type de forme dans l'ordre inverse
 			
 		    }
 	    });
@@ -176,7 +183,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 		br7 = (JRadioButtonMenuItem)ordre.getItem(6);
 		br7.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent arg0) {
-		comm.afficherParDistanceCroissante();     //methode pour afficher les formes par distance maximale
+			  firePropertyChange("TRI", "TriPlusGrandeDistance", false);
+		// comm.afficherParDistanceCroissante();     //methode pour afficher les formes par distance maximale
 		
 	    }
 	    });
@@ -185,7 +193,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 			
 			br8.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParLargeur();			 //methode pour afficher les formes par type de formes par ordre
+				  firePropertyChange("TRI", "TriLargeur", false);
+			// comm.afficherParLargeur();			 //methode pour afficher les formes par type de formes par ordre
 			
 		    }
 	    });
@@ -194,7 +203,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 			
 			br9.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParLargeurInverse();			 //methode pour afficher les formes par type de forme dans l'ordre inverse
+				  firePropertyChange("TRI", "TriLargeur", true);
+			// comm.afficherParLargeurInverse();			 //methode pour afficher les formes par type de forme dans l'ordre inverse
 			
 		    }
 	    });
@@ -202,7 +212,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 		
 			br10.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParHauteur();     //methode pour afficher les formes par distance maximale
+				  firePropertyChange("TRI", "TriHauteur", false);
+			// comm.afficherParHauteur();     //methode pour afficher les formes par distance maximale
 		
 			}
 	    });
@@ -211,7 +222,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 			
 			br11.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParHauteurInverse();			 //methode pour afficher les formes par type de forme dans l'ordre inverse
+				  firePropertyChange("TRI", "TriHauteur", true);
+			// comm.afficherParHauteurInverse();			 //methode pour afficher les formes par type de forme dans l'ordre inverse
 			
 		    }
 	    });
@@ -219,7 +231,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 		
 			br12.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			comm.afficherParOrdreOriginal();     //methode pour afficher les formes par distance maximale
+				  firePropertyChange("TRI", "TriOriginal", false);
+			// comm.afficherParOrdreOriginal();     //methode pour afficher les formes par distance maximale
 		
 			}
 	    });
@@ -304,4 +317,8 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
         }
         return menu;
    }
+	
+	public void setPropertyChangeListener(PropertyChangeListener listener){
+		this.listener = listener;
+	}
 }

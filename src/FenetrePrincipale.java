@@ -53,6 +53,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 		
 		gestionFormes = new GestionFormes();
 		comm.setPropertyChangeListenerMenu(menu);
+		menu.addPropertyChangeListener(this);
 		
 		// Événement qui ferme la connexion au serveur lorsque l'utilisateur ferme la fenêtre par le bouton "X" du GUI.
 		this.addWindowListener(new WindowAdapter() {
@@ -74,64 +75,15 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 			gestionFormes.ajouterForme((String) arg0.getNewValue()); // Envoie la chaîne contenant les paramètres de la forme reçu du serveur à gestionFormes pour celle-ci l'ajoute au tableau des formes
 			fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), false); // Redessine les formes dans le tableau de gestionFormes
 		}
-		
-		if(arg0.getPropertyName().equals("TRI")) {
+		else if(arg0.getPropertyName().equals("TRI")) {
+			gestionFormes.trierNoeuds((String) arg0.getOldValue(), (boolean) arg0.getNewValue()); //Appliquer un tri par numSeq croissant
 			
-			if ((int) arg0.getNewValue()==1) {
-				gestionFormes.trierNoeuds("TriNseq", false); //Appliquer un tri par numSeq croissant
+			if(!arg0.getOldValue().equals("TriOriginal")) {
 				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
 			}
-			
-			else if ((int) arg0.getNewValue()==2) {
-				gestionFormes.trierNoeuds("TriNseq", true); //Appliquer un tri par numSeq decroissant
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-			}
-		
-			else if ((int) arg0.getNewValue()==3) {
-				gestionFormes.trierNoeuds("TriAire", false); //Appliquer un tri par aire de forme croissant
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-			}
-			
-			else if ((int) arg0.getNewValue()==4) {
-				gestionFormes.trierNoeuds("TriAire", true); //Appliquer un tri par aire de forme d�croissante
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-			}
-			else if ((int) arg0.getNewValue()==5) {
-				gestionFormes.trierNoeuds("TriTypeForme", false); //Appliquer un tri par type de forme dans un certain ordre
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-			}
-			else if ((int) arg0.getNewValue()==6) {
-				gestionFormes.trierNoeuds("TriTypeForme", true); //Appliquer un tri par type de forme dans l'ordre inverse
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-			}
-			else if ((int) arg0.getNewValue()==7) {
-				gestionFormes.trierNoeuds("TriPlusGrandeDistance", false); //Appliquer un tri par distance maximale entre 2 points de la forme
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-		  }
-		
-			else if ((int) arg0.getNewValue()==8) {
-				gestionFormes.trierNoeuds("TriLargeur", false); //Appliquer un tri par aire de forme croissant
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-			}
-			
-			else if ((int) arg0.getNewValue()==9) {
-				gestionFormes.trierNoeuds("TriLargeur", true); //Appliquer un tri par aire de forme d�croissante
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-			}
-			else if ((int) arg0.getNewValue()==10) {
-				gestionFormes.trierNoeuds("TriHauteur", false); //Appliquer un tri par type de forme dans un certain ordre
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-			}
-			else if ((int) arg0.getNewValue()==11) {
-				gestionFormes.trierNoeuds("TriHauteur", true); //Appliquer un tri par type de forme dans l'ordre inverse
-				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans le tableau de gestionFormes
-			}
-			else if ((int) arg0.getNewValue()==12) {
-				gestionFormes.trierNoeuds("TriOriginal", false); //Appliquer un tri par distance maximale entre 2 points de la forme
+			else {
 				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), false); // Redessine les formes dans le tableau de gestionFormes
-		  }
-	 }
-	
-  }
-	
+			}
+		}
+	}
 }
