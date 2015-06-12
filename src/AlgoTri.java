@@ -83,6 +83,7 @@ public class AlgoTri {
 			}
 		}
 		
+		
 		// Redivise la partie de gauche et celle de droite en plus petites parties en réappellant récursivement la méthode trier().
 		gauche = trier(gauche, null, false);
 		droite = trier(droite, null, false);
@@ -101,7 +102,7 @@ public class AlgoTri {
 	 */
 	private Noeud echangerNoeuds(Noeud gauche, Noeud droite) {
 		// Initialise deux noeuds temporaires : l'une pour garder en mémoire la liste chaînée triée et l'autre pour parcourir celle-ci.
-		Noeud noeudTete = new Noeud(null);
+		Noeud noeudTete = new Noeud(-1, null);
 		Noeud n = noeudTete;
 		
 		// Boucle pour fusionner les deux noeuds tant et aussi longtemps que l'une d'entre elles n'est pas nulle.
@@ -113,7 +114,7 @@ public class AlgoTri {
 			 *  ajoute le noeud-tête de la partie de gauche à la fin de la liste chaînée triée et avance sa liste chaînée d'un noeud.
 			 */
 			if ((resultat == -1 && !triInverse) || (resultat == 1 && triInverse)) {
-				n.setNoeudSuivant(new Noeud(gauche.getForme()));
+				n.setNoeudSuivant(new Noeud(gauche.getNumNoeud(), gauche.getForme()));
 				gauche = gauche.noeudSuivant();
 			}
 			/*
@@ -121,7 +122,7 @@ public class AlgoTri {
 			 *  ajoute le noeud-tête de la partie de droite à la fin de la liste chaînée triée et avance sa liste chaînée d'un noeud.
 			 */
 			else if ((resultat == 1 && !triInverse) || (resultat == -1 && triInverse)){
-				n.setNoeudSuivant(new Noeud(gauche.getForme()));
+				n.setNoeudSuivant(new Noeud(droite.getNumNoeud(), droite.getForme()));
 				droite = droite.noeudSuivant();
 			}
 			/*
@@ -129,9 +130,9 @@ public class AlgoTri {
 			 *  ajoute le noeud-tête de la partie de gauche puis celle de la partie de droite à la fin de la liste chaînée triée et avance leurs listes chaînées d'un noeud.
 			 */
 			else {
-				n.setNoeudSuivant(new Noeud(gauche.getForme()));
+				n.setNoeudSuivant(new Noeud(gauche.getNumNoeud(), gauche.getForme()));
 				n = n.noeudSuivant();
-				n.setNoeudSuivant(new Noeud(droite.getForme()));
+				n.setNoeudSuivant(new Noeud(droite.getNumNoeud(), droite.getForme()));
 				gauche = gauche.noeudSuivant();
 				droite = droite.noeudSuivant();
 			}
@@ -181,6 +182,39 @@ public class AlgoTri {
 				return 1;
 			}
 		}
+		// Compare le type de forme entre deux points des formes.
+		else if(choixTri.equals("TriTypeForme")) {
+			if(forme1 instanceof Carre && !(forme2 instanceof Carre)) {
+				return -1;
+			}
+			else if(forme1 instanceof Rectangle && !(forme2 instanceof Rectangle)) {
+				if(forme2 instanceof Carre) {
+					return 1;
+				}
+				else {
+					return -1;
+				}
+			}
+			else if(forme1 instanceof Cercle && !(forme2 instanceof Cercle)) {
+				if(forme2 instanceof Carre || forme2 instanceof Rectangle) {
+					return 1;
+				}
+				else {
+					return -1;
+				}
+			}
+			else if(forme1 instanceof Ovale && !(forme2 instanceof Ovale)) {
+				if(forme2 instanceof Ligne) {
+					return -1;
+				}
+				else {
+					return 1;
+				}
+			}
+			else if(!(forme2 instanceof Ligne)) {
+				return 1;
+			}
+		}
 		// Compare la plus grande distance entre deux points des formes.
 		else if(choixTri.equals("TriPlusGrandeDistance")) {
 			if(forme1.getPlusGrandeDistance() < forme2.getPlusGrandeDistance()) {
@@ -205,6 +239,15 @@ public class AlgoTri {
 				return -1;
 			}
 			else if(forme1.getHauteur() > forme2.getHauteur()) {
+				return 1;
+			}
+		}
+		// Compare le num�ro des noeuds.
+		else if(choixTri.equals("TriOriginal")) {
+			if(gauche.getNumNoeud() < droite.getNumNoeud()) {
+				return -1;
+			}
+			else if(gauche.getNumNoeud() > droite.getNumNoeud()) {
 				return 1;
 			}
 		}

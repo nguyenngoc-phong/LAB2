@@ -15,6 +15,7 @@ Historique des modifications
 *******************************************************/  
 
 import java.beans.PropertyChangeListener;
+
 import javax.swing.SwingWorker;
 
 /**
@@ -23,8 +24,10 @@ import javax.swing.SwingWorker;
 public class CommBase {
 	
 	private final int DELAI = 1000;
+	//
 	private SwingWorker threadComm =null;
 	private PropertyChangeListener listener = null;
+	private PropertyChangeListener listenerMenu = null;
 	private boolean isActif = false;
 	
 	private CommSocket commSocket;
@@ -44,10 +47,14 @@ public class CommBase {
 		this.listener = listener;
 	}
 	
+	public void setPropertyChangeListenerMenu(PropertyChangeListener listener){
+		this.listenerMenu = listener;
+	}
+	
 	/**
-	 * DÃ©marre la communication
+	 * DÃ©marre la communication et obtenir formes
 	 */
-	public void start(){
+	public void obtenirFormes(){
 		creerCommunication();
 	}
 	
@@ -58,6 +65,7 @@ public class CommBase {
 		if(threadComm!=null) {
 			threadComm.cancel(true); 
 			commSocket.stop(); // ArrÃªte la communication avec le serveur.
+			threadComm.firePropertyChange("FIN-CONNEXION", null, null);
 		}
 		isActif = false;
 	}
@@ -78,8 +86,8 @@ public class CommBase {
 				
 				@Override
 				protected Object doInBackground() throws Exception {
-					
-					while(commSocket.isActif()) { // Boucle tant que la connexion au serveur est active.
+					int compteur = 0;
+					while(commSocket.isActif() && compteur <10) { // Boucle tant que la connexion au serveur est active et qu'on a moins de 10 formes
 						
 						Thread.sleep(DELAI);
 						
@@ -89,18 +97,158 @@ public class CommBase {
 						if(listener!=null){
 						   firePropertyChange("ENVOIE-FORME", null, commSocket.getChaineForme()); 
 						}
+						compteur++;
 					}
 					stop(); // ArrÃªte le fil d'exÃ©cution si la connexion au serveur est arrÃªtÃ©e.
 					return null;
 				}
 			};
 			if(listener!=null) {
-				   threadComm.addPropertyChangeListener(listener); // La mÃ©thode "propertyChange" de ApplicationFormes sera donc appelÃ©e lorsque le SwinkWorker invoquera la mÃ©thode "firePropertyChanger" 		
+				   threadComm.addPropertyChangeListener(listener); // La mÃ©thode "propertyChange" de ApplicationFormes sera donc appelÃ©e lorsque le SwinkWorker invoquera la mÃ©thode "firePropertyChanger" 
+				   threadComm.addPropertyChangeListener(listenerMenu);
 			}
 			threadComm.execute(); // Lance le fil d'exÃ©cution parallÃ¨le.
 			isActif = true;
 			
 		}
+		
+	}
+	
+	
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 1 pour le cas de numSeqCroissant
+	 * afin que les formes soient affichées  par ordre de séquence croissant
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParNumSeqCroissant(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 1); 
+		}
+		
+	}
+	
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 2 pour le cas de numSeqCroissant
+	 * afin que les formes soient affichées  par ordre de séquence décroissant
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParNumSeqDecroissant(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 2); 
+		}
+	}
+	
+
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 3 pour le cas de ParAireCroissant
+	 * afin que les formes soient affichées  par aire de forme croissante
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParAireCroissant(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 3); 
+		}	
+	}
+
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 4 pour le cas de ParAireDeCroissant
+	 * afin que les formes soient affichées  par aire de forme decroissante
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParAireDecroissant(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 4); 
+		}
+		
+	}
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 5 pour le cas de ParTypeForme
+	 * afin que les formes soient affichées  par type de forme dans un certain ordre
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParTypeForme(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 5); 
+		}
+		
+	}
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 6 pour le cas de ParTypeFormeInverse
+	 * afin que les formes soient affichées  par type de forme dans l'ordre inverse
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParTypeFormeInverse(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 6); 
+		}
+		
+	}
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 7 pour le cas de ParDistanceCroissante
+	 * afin que les formes soient affichées  par distance croissante maximale
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParDistanceCroissante(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 7); 
+		}
+		
+	}
+	
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 5 pour le cas de ParTypeForme
+	 * afin que les formes soient affichées  par type de forme dans un certain ordre
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParLargeur(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 8); 
+		}
+		
+	}
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 6 pour le cas de ParTypeFormeInverse
+	 * afin que les formes soient affichées  par type de forme dans l'ordre inverse
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParLargeurInverse(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 9); 
+		}
+		
+	}
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 7 pour le cas de ParDistanceCroissante
+	 * afin que les formes soient affichées  par distance croissante maximale
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParHauteur(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 10); 
+		}
+		
+	}
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 7 pour le cas de ParDistanceCroissante
+	 * afin que les formes soient affichées  par distance croissante maximale
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParHauteurInverse(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 11); 
+		}
+		
+	}
+	/**
+	 * alerte l'observateur avec pour nom "TRI" et indique 7 pour le cas de ParDistanceCroissante
+	 * afin que les formes soient affichées  par distance croissante maximale
+	 * @author: Fabeleu Carole
+	 */
+	public void afficherParOrdreOriginal(){
+		if(listener!=null) {
+			threadComm.firePropertyChange("TRI", null, 12); 
+		}
+		
 	}
 	
 	/**

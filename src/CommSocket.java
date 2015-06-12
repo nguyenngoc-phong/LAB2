@@ -79,6 +79,10 @@ public class CommSocket {
 		catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Le serveur " + hote + " ne répond pas sur le port " + port + ".", "Aucune réponse du serveur", JOptionPane.ERROR_MESSAGE);
 		}
+		catch (NullPointerException e) {
+		}
+		catch (IllegalArgumentException e) {
+		}
 	}
 	
 	/**

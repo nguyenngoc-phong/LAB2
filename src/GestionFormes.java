@@ -24,7 +24,6 @@ import ca.etsmtl.log.util.IDLogger;
 public class GestionFormes {
 	private CreationFormes creationFormes;
 	private Noeud noeudTete;
-	private Noeud noeudTeteInitial;
 	private final int MAX_FORMES = 10;
 	private int nbNoeuds;
 	private IDLogger logger;
@@ -49,31 +48,25 @@ public class GestionFormes {
 		Forme forme = creationFormes.creerForme(chaineIn);
 		
 		if (noeudTete == null) {
-			noeudTete = new Noeud(forme);
+			noeudTete = new Noeud(nbNoeuds, forme);
 		}
 		else {
 			Noeud n = noeudTete;
 			while (n.noeudSuivant() != null) {
 				n = n.noeudSuivant();
 			}
-			n.setNoeudSuivant(new Noeud(forme));
+			n.setNoeudSuivant(new Noeud(nbNoeuds, forme));
 		}
 		
-		if (nbNoeuds < MAX_FORMES) {
-			nbNoeuds++;
-		}
-		else {
+		if (nbNoeuds >= MAX_FORMES){
 			noeudTete = noeudTete.noeudSuivant();
 		}
 		
 		logger.logID(forme.getNseq());
+		nbNoeuds++;
 	}
 	
 	public void trierNoeuds(String choixTri, boolean triInverse) {
-		if(noeudTeteInitial == null) {
-			noeudTeteInitial = noeudTete;
-		}
-		
 		noeudTete = algoTri.trier(noeudTete, choixTri, triInverse);
 	}
 

@@ -152,8 +152,9 @@ public class FenetreFormes extends JComponent {
 	 * @param listeFormes
 	 *            : le tableau de formes reçu de FenetrePrincipale
 	 */
-	public void dessinerFormes(Noeud noeudTete) {
+	public void dessinerFormes(Noeud noeudTete, boolean affichageTrie) {
 		this.noeudTete = noeudTete;
+		this.affichageTrie = affichageTrie;
 		repaint();
 	}
 
@@ -248,6 +249,7 @@ public class FenetreFormes extends JComponent {
 	 *            : un boolean qui sera affecte a l'attribut trier
 	 * 
 	 */
+	@Deprecated
 	public void setAffichageTrie(boolean affichageTrie) {
 		this.affichageTrie = affichageTrie;
 	}

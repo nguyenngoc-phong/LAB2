@@ -1,9 +1,11 @@
 
 public class Noeud {
+	private int numNoeud;
 	private Forme forme;
 	private Noeud noeudSuivant;
 	
-	public Noeud(Forme forme) {
+	public Noeud(int numNoeud, Forme forme) {
+		this.numNoeud = numNoeud;
 		this.forme = forme;
 		this.noeudSuivant = null;
 	}
@@ -14,6 +16,10 @@ public class Noeud {
 	
 	public void setNoeudSuivant(Noeud noeudSuivant) {
 		this.noeudSuivant = noeudSuivant;
+	}
+	
+	public int getNumNoeud() {
+		return numNoeud;
 	}
 	
 	public Forme getForme() {
