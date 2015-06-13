@@ -1,8 +1,6 @@
 # LAB2
 Laboratoire 2 du cours de LOG121
-<<<<<<< HEAD
-=======
-=======
+============================================================================
 
 Message pour Carole et Richard :
 
@@ -32,4 +30,3 @@ Pour enregistrer la version courante de votre laboratoire sur l'ordinateur :
 Pour envoyer une nouvelle version du laboratoire :
   - git commit -m 'VOTRE COMMENTAIRE'
   - git push origin VERSION_X_X
->>>>>>> origin/Version_2_2_Finale
