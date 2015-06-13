@@ -1,8 +1,15 @@
 /******************************************************
 Cours:  LOG121
-Projet: Squelette du laboratoire #1
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
 Nom du fichier: MenuFenetre.java
 Date crÃ©Ã©: 2013-05-03
+Date dern. modif. 2015-06-12
 *******************************************************
 Historique des modifications
 *******************************************************
@@ -10,6 +17,9 @@ Historique des modifications
 2013-05-03 Version initiale
 *@author Ngoc-Phong Nguyen
 2015-05-25 Ajout de la ligne de code qui dÃ©sactive l'option "ArrÃªter" Ã  l'ouverture de l'application
+2015-06-12 Optimisation de la classe
+*@author Carole Fabeleu
+2015-06-08 Modification des menus Dessin, Fichier et Ordre
 *******************************************************/  
 
 import java.awt.event.ActionEvent;
@@ -33,11 +43,11 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 	
 	private static final long serialVersionUID = 1536336192561843187L;
 
-	private static final int  	MENU_FICHIER_QBTENIR_FORME_TOUCHE_MASK = ActionEvent.CTRL_MASK;
-	private static final char 	MENU_FICHIER_QBTENIR_FORME_TOUCHE_RACC = KeyEvent.VK_O;
+	private static final int  	MENU_FICHIER_OBTENIR_FORMES_TOUCHE_MASK = ActionEvent.CTRL_MASK;
+	private static final char 	MENU_FICHIER_OBTENIR_FORMES_TOUCHE_RACC = KeyEvent.VK_O;
 	private static final String
 			MENU_FICHIER_TITRE = "app.frame.menus.file.title",
-			MENU_FICHIER_QBTENIR_FORME = "app.frame.menus.file.form",
+			MENU_FICHIER_OBTENIR_FORME = "app.frame.menus.file.form",
 			
 			
 			MENU_ORDRE_TITRE = "app.frame.menus.order.title",
@@ -59,13 +69,29 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 	private static final String MESSAGE_DIALOGUE_A_PROPOS = "app.frame.dialog.about";  
 	//private static final int DELAI_QBTENIR_FORME_MSEC = 200;
 	
+	// Tous les menus
 	private JMenu fichier, ordre;
 	private JMenuItem obtenirFormesMenuItem;
-	private JRadioButtonMenuItem br1, br2, br3, br4, br5, br6, br7, br8, br9, br10, br11, br12, item;
+
+	// Tous les RadioButtons
+	private JRadioButtonMenuItem
+		boutonTriNseqCrois,
+		boutonTriNseqDecrois,
+		boutonTriAireCrois,
+		boutonTriAireDecrois,
+		boutonTriTypeCrois,
+		boutonTriTypeDecrois,
+		boutonTriDistanceCrois,
+		boutonTriLargeurCrois,
+		boutonTriLargeurDecrois,
+		boutonTriHauteurCrois,
+		boutonTriHauteurDecrois,
+		boutonTriOriginal,
+		item;
 	
 	CommBase comm; // Pour activer/dÃ©sactiver la communication avec le serveur
 	
-	private PropertyChangeListener listener = null;
+	private PropertyChangeListener listener = null; // Recepteur d'information de choix de tri
 	
 	/**
 	 * Constructeur
@@ -75,11 +101,12 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 		addMenuFichier();
 		addMenuOrdre();
 		addMenuAide();
+		rafraichirMenus('I'); // Mode Initialisaion
 	}
 
 	/**
-	 *  Creation du menu Fichier 
-	 *  source: inspirée du code source fourni  dans le laboratoire
+	 *  Création du menu Fichier.
+	 *  Inspirée du code source fourni dans le laboratoire.
 	 *  @author  Carole Fabeleu
 	 *  @date:   2015-06-05 
 	 */
@@ -89,24 +116,21 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 		obtenirFormesMenuItem = fichier.getItem(0);
 		obtenirFormesMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				comm.obtenirFormes();      //creer méthode dans commBase pour obtenir les formes
-				if(comm.isActif()) {
-					ordre.setEnabled(false);
-					br12.setSelected(true);
-				}
-				rafraichirMenus();
+				comm.obtenirFormes(); // Appelle méthode dans commBase pour obtenir les formes
+				rafraichirMenus(null);
 			}
 			
 		});
+
 		fichier.getItem(0).setAccelerator(
-				KeyStroke.getKeyStroke(MENU_FICHIER_QBTENIR_FORME_TOUCHE_RACC,
-						MENU_FICHIER_QBTENIR_FORME_TOUCHE_MASK));
+				KeyStroke.getKeyStroke(MENU_FICHIER_OBTENIR_FORMES_TOUCHE_RACC,
+						MENU_FICHIER_OBTENIR_FORMES_TOUCHE_MASK));
 		add(fichier);
 	}
 	
 	/**
-	 *  Creation du menu Ordre 
-	 *  source: inspirée du code source fourni  dans le laboratoire
+	 *  Création du menu Ordre.
+	 *  Inspirée du code source fourni dans le laboratoire.
 	 *  @author  Carole Fabeleu
 	 *  @date:   2015-06-05 
 	 */
@@ -118,141 +142,111 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 																MENU_ORDRE_LARGEUR_CROISSANT, MENU_ORDRE_LARGEUR_DECROISSANT,
 																MENU_ORDRE_HAUTEUR_CROISSANT, MENU_ORDRE_HAUTEUR_DECROISSANT,
 																MENU_ORDRE_ORIGINAL});
+		
+		// Groupe de RadioButtons
 		ButtonGroup bg = new ButtonGroup();
 
-		br1 = (JRadioButtonMenuItem)ordre.getItem(0);
-			
-			br1.addActionListener(new ActionListener(){
+		boutonTriNseqCrois = (JRadioButtonMenuItem)ordre.getItem(0);
+		boutonTriNseqCrois.addActionListener(new ActionListener(){
 		  public void actionPerformed(ActionEvent arg0) {
-			  firePropertyChange("TRI", "TriNseq", false);
-			// comm.afficherParNumSeqCroissant();  //methode pour afficher les formes par numero de séquence croissant
+			  firePropertyChange("TRI", "TriNseq", false); // Methode pour trier les formes par numero de sequence en ordre decroissant
 			
 		  }
 		});
+		bg.add(boutonTriNseqCrois);
 
-		br2 = (JRadioButtonMenuItem)ordre.getItem(1);
-			
-			br2.addActionListener(new ActionListener(){
+		boutonTriNseqDecrois = (JRadioButtonMenuItem)ordre.getItem(1);
+		boutonTriNseqDecrois.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				firePropertyChange("TRI", "TriNseq", true);
-			// comm.afficherParNumSeqDecroissant();       //methode pour afficher les formes par numero de séquence décroissant
-			
+				firePropertyChange("TRI", "TriNseq", true); // Methode pour trier les formes par numero de sequence en ordre decroissant
 		    }
 	    });
-			
-		br3 = (JRadioButtonMenuItem)ordre.getItem(2);
-			
-			br3.addActionListener(new ActionListener(){
+		bg.add(boutonTriNseqDecrois);
+
+		boutonTriAireCrois = (JRadioButtonMenuItem)ordre.getItem(2);
+		boutonTriAireCrois.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				  firePropertyChange("TRI", "TriAire", false);
-			//comm.afficherParAireCroissant();   //methode pour afficher les formes par aire de  forme croissante
-			
+				  firePropertyChange("TRI", "TriAire", false); // Methode pour trier les formes par aire en ordre croissant
 		    }
 	    });	
+		bg.add(boutonTriAireCrois);
 
-		br4 = (JRadioButtonMenuItem)ordre.getItem(3);
-		
-			br4.addActionListener(new ActionListener(){
+		boutonTriAireDecrois = (JRadioButtonMenuItem)ordre.getItem(3);
+		boutonTriAireDecrois.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				  firePropertyChange("TRI", "TriAire", true);
-			//comm.afficherParAireDecroissant();         //methode pour afficher les formes par aire de  forme décroissante
-			
+				  firePropertyChange("TRI", "TriAire", true); // Methode pour trier les formes par aire en ordre decroissant
+	    	}
+	    });
+		bg.add(boutonTriAireDecrois);
+
+		boutonTriTypeCrois = (JRadioButtonMenuItem)ordre.getItem(4);
+		boutonTriTypeCrois.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				  firePropertyChange("TRI", "TriTypeForme", false); // Methode pour trier les formes par type de forme dans le sens ordonnee
 		    }
 	    });
+		bg.add(boutonTriTypeCrois);
 
-		br5 = (JRadioButtonMenuItem)ordre.getItem(4);
-			
-			br5.addActionListener(new ActionListener(){
+		boutonTriTypeDecrois = (JRadioButtonMenuItem)ordre.getItem(5);
+		boutonTriTypeDecrois.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				  firePropertyChange("TRI", "TriTypeForme", false);
-			//comm.afficherParTypeForme();			 //methode pour afficher les formes par type de formes par ordre
-			
+				  firePropertyChange("TRI", "TriTypeForme", true); // Methode pour trier les formes par type de forme dans le sens inverse
 		    }
 	    });
-
-		br6 = (JRadioButtonMenuItem)ordre.getItem(5);
+		bg.add(boutonTriTypeDecrois);
 			
-			br6.addActionListener(new ActionListener(){
+		boutonTriDistanceCrois = (JRadioButtonMenuItem)ordre.getItem(6);
+		boutonTriDistanceCrois.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				  firePropertyChange("TRI", "TriTypeForme", true);
-			// comm.afficherParTypeFormeInverse();			 //methode pour afficher les formes par type de forme dans l'ordre inverse
-			
+				  // Methode pour trier les formes par leur plus grande distance entre deux points en ordre croissant
+				  firePropertyChange("TRI", "TriPlusGrandeDistance", false);
 		    }
 	    });
-			
-		br7 = (JRadioButtonMenuItem)ordre.getItem(6);
-		br7.addActionListener(new ActionListener(){
-		public void actionPerformed(ActionEvent arg0) {
-			  firePropertyChange("TRI", "TriPlusGrandeDistance", false);
-		// comm.afficherParDistanceCroissante();     //methode pour afficher les formes par distance maximale
-		
-	    }
-	    });
+		bg.add(boutonTriDistanceCrois);
 
-		br8 = (JRadioButtonMenuItem)ordre.getItem(7);
-			
-			br8.addActionListener(new ActionListener(){
+		boutonTriLargeurCrois = (JRadioButtonMenuItem)ordre.getItem(7);
+		boutonTriLargeurCrois.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				  firePropertyChange("TRI", "TriLargeur", false);
-			// comm.afficherParLargeur();			 //methode pour afficher les formes par type de formes par ordre
-			
+				  firePropertyChange("TRI", "TriLargeur", false); // Methode pour trier les formes par largeur en ordre croissant
 		    }
 	    });
+		bg.add(boutonTriLargeurCrois);
 
-		br9 = (JRadioButtonMenuItem)ordre.getItem(8);
-			
-			br9.addActionListener(new ActionListener(){
+		boutonTriLargeurDecrois = (JRadioButtonMenuItem)ordre.getItem(8);
+		boutonTriLargeurDecrois.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				  firePropertyChange("TRI", "TriLargeur", true);
-			// comm.afficherParLargeurInverse();			 //methode pour afficher les formes par type de forme dans l'ordre inverse
-			
+				  firePropertyChange("TRI", "TriLargeur", true); // Methode pour trier les formes par largeur en ordre decroissant
 		    }
 	    });
-		br10 = (JRadioButtonMenuItem)ordre.getItem(9);
-		
-			br10.addActionListener(new ActionListener(){
+		bg.add(boutonTriLargeurDecrois);
+
+		boutonTriHauteurCrois = (JRadioButtonMenuItem)ordre.getItem(9);
+		boutonTriHauteurCrois.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				  firePropertyChange("TRI", "TriHauteur", false);
-			// comm.afficherParHauteur();     //methode pour afficher les formes par distance maximale
-		
+				  firePropertyChange("TRI", "TriHauteur", false); // Methode pour trier les formes par hauteur en ordre croissant
 			}
 	    });
+		bg.add(boutonTriHauteurCrois);
 
-		br11 = (JRadioButtonMenuItem)ordre.getItem(10);
-			
-			br11.addActionListener(new ActionListener(){
+		boutonTriHauteurDecrois = (JRadioButtonMenuItem)ordre.getItem(10);
+		boutonTriHauteurDecrois.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				  firePropertyChange("TRI", "TriHauteur", true);
-			// comm.afficherParHauteurInverse();			 //methode pour afficher les formes par type de forme dans l'ordre inverse
+				  firePropertyChange("TRI", "TriHauteur", true); // Methode pour trier les formes par hauteur en ordre decroissant
 			
 		    }
 	    });
-		br12 = (JRadioButtonMenuItem)ordre.getItem(11);
-		
-			br12.addActionListener(new ActionListener(){
+		bg.add(boutonTriHauteurDecrois);
+
+		boutonTriOriginal = (JRadioButtonMenuItem)ordre.getItem(11);
+		boutonTriOriginal.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				  firePropertyChange("TRI", "TriOriginal", false);
-			// comm.afficherParOrdreOriginal();     //methode pour afficher les formes par distance maximale
-		
+				  firePropertyChange("TRI", "TriOriginal", false); // Methode pour trier les formes selon l'ordre original
 			}
 	    });
+		bg.add(boutonTriOriginal);
 		
 		add(ordre);
-		
-		bg.add(br1);
-		bg.add(br2);
-		bg.add(br3);
-		bg.add(br4);
-		bg.add(br5);
-		bg.add(br6);
-		bg.add(br7);
-		bg.add(br8);
-		bg.add(br9);
-		bg.add(br10);
-		bg.add(br11);
-		bg.add(br12);
-		
-		ordre.setEnabled(false);
+
 	}
 
 	/**
@@ -272,18 +266,30 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 
 	/**
 	 *  Activer ou désactiver les items du menu selon la sélection. 
+	 *  @param etatMenuFenetre : charactère déterminant si des menus doivent être changés selon l'état du menu.
+	 *  
 	 *  @author: Fabeleu Carole
 	 *  @date: 09/06/2015
 	 */
-	private void rafraichirMenus() {
+	private void rafraichirMenus(char etatMenuFenetre) {
 		obtenirFormesMenuItem.setEnabled(!comm.isActif());
+
+		if(etatMenuFenetre == 'I') { // Desactive le menu ordre lors du lancement de l'application
+			ordre.setEnabled(false);
+		}
+		else {
+			ordre.setEnabled(!(comm.isActif()));
+		}
+
+		if(etatMenuFenetre == 'F') { // Met le curseur des RadioButtons sur le tri original a la fin de l'obtention de formes
+			boutonTriOriginal.isSelected(true);
+		}
 	}
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		if(arg0.getPropertyName().equals("FIN-CONNEXION")) {
-			obtenirFormesMenuItem.setEnabled(!comm.isActif());
-			ordre.setEnabled(true);
+			rafraichirMenus('F'); // Mode Fin de connexion
 		}
 	 }
 	
@@ -302,11 +308,11 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
    }
 	
 	/**
-	 * Créer un élement de menu RadioButton Ã  partir d'un champ principal et ses elements
-	 * @param titleKey champs principal
-	 * @param itemKeys elements
-	 * @return le menu
-	 *  source: inspirée du code source fourni  dans le laboratoire
+	 * Créer un élement de menu RadioButton Ã  partir d'un champ principal et ses éléments.
+	 * Inspirée du code source fourni dans le laboratoire.
+	 * @param titleKey : Champ principal
+	 * @param itemKeys : Éléments
+	 * @return Le menu
 	 *  @author  Carole Fabeleu
 	 *  @date:   09/06/2015
 	 */
@@ -318,6 +324,10 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
         return menu;
    }
 	
+	/**
+	 * Définir le récepteur du l'information du choix de tri dans le menu Ordre
+	 * @param listener sera alerté lors de l'appel de "firePropertyChanger"
+	 */
 	public void setPropertyChangeListener(PropertyChangeListener listener){
 		this.listener = listener;
 	}

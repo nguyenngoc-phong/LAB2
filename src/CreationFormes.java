@@ -1,25 +1,33 @@
 /******************************************************
 Cours:  LOG121
-Projet: Laboratoire #1
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
 Nom du fichier: CreationFormes.java
-Date crÃ©Ã©: 2015-05-13
+Date créé: 2015-05-13
+Date dern. modif. 2015-06-12
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Ngoc-Phong Nguyen
 2015-05-13 Version initiale
-2015-05-18 Ajout de la mÃ©thode creerForme()
+2015-05-18 Ajout de la méthode creerForme()
 2015-05-28 Optimisation de creerForme()
+2015-05-18 Modification de l'entête
 *******************************************************/
 
 /**
- * Cette classe s'occupe de la crÃ©ation des formes.
+ * Cette classe s'occupe de la création des formes.
  * @author Ngoc-Phong Nguyen
  * @date 2015/05/13
  */
 public class CreationFormes {
 	private Forme f;
-	private DecompChaine decompChaine; // Le dÃ©composeur de chaÃ®ne de caractÃ¨res.
+	private DecompChaine decompChaine; // Le décomposeur de chaîne de caractères.
 
 	/**
 	 * Constructeur
@@ -29,9 +37,9 @@ public class CreationFormes {
 	}
 
 	/**
-	 * CrÃ©e une forme selon la chaÃ®ne de caractÃ¨res reÃ§ue.
-	 * @param chaineIn : La chaÃ®ne de caractÃ¨res reÃ§ue du serveur.
-	 * @return La forme nouvellement crÃ©Ã©e.
+	 * Crée une forme selon la chaîne de caractères reçue.
+	 * @param chaineIn : La chaîne de caractères reçue du serveur.
+	 * @return La forme nouvellement créée.
 	 */
 	public Forme creerForme(String chaineIn) {
 		try {
@@ -39,7 +47,7 @@ public class CreationFormes {
 			int nseq = decompChaine.getNseq();
 			String type = decompChaine.getType();
 			
-			// CrÃ©e une forme diffÃ©rente selon le type de forme trouvÃ© dans la chaÃ®ne de caractÃ¨res.
+			// Crée une forme différente selon le type de forme trouvé dans la chaîne de caractères.
 			if (type.equals("CARRE")) {
 				int x1 = decompChaine.getParametre(0);
 				int y1 = decompChaine.getParametre(1);

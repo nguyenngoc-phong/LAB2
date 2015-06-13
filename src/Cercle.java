@@ -1,13 +1,22 @@
 /******************************************************
 Cours:  LOG121
-Projet: Laboratoire #1
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
 Nom du fichier: Cercle.java
-Date crÃ©Ã©: 2015-05-13
+Date créé: 2015-05-13
+Date dern. modif. 2015-06-12
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Ngoc-Phong Nguyen
 2015-05-13 Version initiale
+2015-06-08 Modification des attributs et des accesseurs
+2015-05-18 Modification de l'entête
 *******************************************************/
 import java.awt.Color;
 import java.awt.Point;
@@ -18,20 +27,21 @@ import java.awt.Point;
  * @date 2015/05/13
  */
 public class Cercle extends Forme{
-	// private Point centre;
-	// private int rayon;
+	// Attributs plus utilisés depuis v.1.7 (2015-06-08)
+	@Deprecated private Point centre;
+	@Deprecated private int rayon;
 	
 	/**
 	 * Constructeur
-	 * @param nseq : numÃ©ro de sÃ©quence du cercle
-	 * @param centreX : coordonnÃ©e x du centre du cercle
-	 * @param centreY : coordonnÃ©e y du centre du cercle
+	 * @param nseq : numéro de séquence du cercle
+	 * @param centreX : coordonnée x du centre du cercle
+	 * @param centreY : coordonnée y du centre du cercle
 	 * @param rayon : rayon du cercle
 	 */
 	public Cercle(int nseq, int centreX, int centreY, int rayon) {
 		this.nseq = nseq;
-		// this.centre = new Point(centreX, centreY);
-		// this.rayon = rayon;
+		this.centre = new Point(centreX, centreY);
+		this.rayon = rayon;
 		this.coordHG = new Point(centreX - rayon, centreY - rayon);
 		this.largeur = 2 * rayon;
 		this.hauteur = 2 * rayon;
@@ -39,13 +49,12 @@ public class Cercle extends Forme{
 	}
 	
 	/**
-	 * Accesseur de la coordonnÃ©e(x,y) du centre du cercle 
-	 * @return La coordonnÃ©e(x,y) du centre du cercle
+	 * Accesseur de la coordonnée(x,y) du centre du cercle 
+	 * @return La coordonnée(x,y) du centre du cercle
 	 */
 	@Deprecated
 	public Point getCentre() {
-		// return (Point) centre.clone();
-		return null;
+		return (Point) centre.clone();
 	}
 
 	/**
@@ -54,27 +63,8 @@ public class Cercle extends Forme{
 	 */
 	@Deprecated
 	public int getRayon() {
-		// return rayon;
-		return 0;
+		return rayon;
 	}
-
-	/*
-	@Deprecated
-	@Override
-	public int getLargeur() {
-		// return 2 * rayon;
-		return 0;
-	}
-	*/
-
-	/*
-	@Deprecated
-	@Override
-	public int getHauteur() {
-		// return 2 * rayon;
-		return 0;
-	}
-	*/
 	
 	/**
 	 * Accesseur de l'aire du cercle

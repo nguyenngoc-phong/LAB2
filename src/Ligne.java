@@ -1,13 +1,22 @@
 /******************************************************
 Cours:  LOG121
-Projet: Laboratoire #1
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
 Nom du fichier: Ligne.java
 Date crÃ©Ã©: 2015-05-13
+Date dern. modif. 2015-06-12
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Ngoc-Phong Nguyen
 2015-05-13 Version initiale
+2015-06-08 Modification des attributs et des accesseurs
+2015-05-18 Modification de l'entête
 *******************************************************/
 import java.awt.Color;
 import java.awt.Point;
@@ -55,43 +64,6 @@ public class Ligne extends Forme {
 		return (Point) coord2.clone();
 	}
 	
-	/*
-	@Deprecated
-	@Override
-	public Point getCoordHG() {
-		Point coordHG = new Point(0, 0);
-		if (coord1.x <= coord2.x) {
-			coordHG.x = coord1.x;
-		}
-		else {
-			coordHG.x = coord2.x;
-		}
-		if (coord1.y <= coord2.y) {
-			coordHG.y = coord1.y;
-		}
-		else {
-			coordHG.y = coord2.y;
-		}
-		return coordHG;
-	}
-	*/
-	
-	/*
-	@Deprecated
-	@Override
-	public int getLargeur() {
-		return Math.abs(coord2.x - coord1.x);
-	}
-	*/
-
-	/*
-	@Deprecated
-	@Override
-	public int getHauteur() {
-		return Math.abs(coord2.y - coord1.y);
-	}
-	*/
-	
 	/**
 	 * Accesseur de l'aire de la ligne.
 	 * Son aire est égale à sa longueur * 1 pixel.
@@ -112,16 +84,22 @@ public class Ligne extends Forme {
 		return Math.sqrt(Math.pow(coord2.x - coord1.x, 2) + Math.pow(coord2.y - coord1.y, 2));
 	}
 	
+	/**
+	 * Accesseur d'une des coordonnées de la ligne (coord1 ou coord2) par rapport au coin en haut à gauche de la ligne.
+	 * @param numCoordTrie : Le numéro du point cherché.
+	 * @return L'une des coordonnées de la ligne (coord1 ou coord2) par rapport au coin en haut à gauche de la ligne.
+	 */
 	public Point getCoordPRCoordHG(int numCoordTrie) {
-		Point coordTrie = new Point();
+		Point coordTrie = new Point(); // Initialise le point de retour à (0, 0)
 		if(numCoordTrie == 1) {
-			coordTrie.x = coord1.x - coordHG.x;
-			coordTrie.y = coord1.y - coordHG.y;
+			coordTrie.x = coord1.x - coordHG.x; // Donne la différence en x entre le point coord1 et le coin en haut à gauche de la ligne.
+			coordTrie.y = coord1.y - coordHG.y; // Donne la différence en y entre le point coord1 et le coin en haut à gauche de la ligne.
 		}
 		if(numCoordTrie == 2) {
-			coordTrie.x = coord2.x - coordHG.x;
-			coordTrie.y = coord2.y - coordHG.y;
+			coordTrie.x = coord2.x - coordHG.x; // Donne la différence en x entre le point coord2 et le coin en haut à gauche de la ligne.
+			coordTrie.y = coord2.y - coordHG.y; // Donne la différence en y entre le point coord2 et le coin en haut à gauche de la ligne.
 		}
+		// La coordonnée cherchée.
 		return coordTrie;
 	}
 }

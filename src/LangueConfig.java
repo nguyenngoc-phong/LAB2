@@ -1,14 +1,23 @@
 /******************************************************
 Cours:  LOG121
-Projet: Squelette du laboratoire #1
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
 Nom du fichier: LangueConfig.java
 Date créé: 2013-05-03
+Date dern. modif. 2015-06-12
 *******************************************************
 * Ce code est basé d'un exemple sur Internet, de David Geary, à la page suivante:
 * http://www.javaworld.com/javaworld/jw-05-2003/jw-0530-designpatterns-p2.html
 Historique des modifications
 *******************************************************
 2013-05-03 Version initiale
+@author Ngoc-Phong Nguyen
+2015-05-18 Modification de l'entête
 *******************************************************/  
 
 import java.util.Locale;

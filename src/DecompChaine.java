@@ -1,14 +1,21 @@
 /******************************************************
 Cours:  LOG121
-Projet: Laboratoire #1
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
 Nom du fichier: DecompChaine.java
-Date crÃ©Ã©: 2015-05-13
+Date créé: 2015-05-13
+Date dern. modif. 2015-06-12
 *******************************************************
-Le code des Pattern p1 et p2 sont basÃ©s sur l'exemple prÃ©sentÃ© sur la page de l'Ã©noncÃ© du laboratoire 1:
+Le code des Pattern p1 et p2 sont basés sur l'exemple présenté sur la page de l'énoncé du laboratoire 1:
 
 https://cours.etsmtl.ca/log121/
 
-Cliquez sur l'onglet Laboratoires du menu Ã  gauche de l'Ã©cran, puis sur le lien "Ã‰noncÃ© du lab 1" dans le tableau des laboratoires sur "Laboratoires"
+Cliquez sur l'onglet Laboratoires du menu à gauche de l'écran, puis sur le lien "Énoncé du lab 1" dans le tableau des laboratoires sur "Laboratoires"
 et finalement sur le lien "cet exemple" sous le point 6 des contraintes de laboratoire.
 *******************************************************
 Historique des modifications
@@ -16,18 +23,19 @@ Historique des modifications
 *@author Ngoc-Phong Nguyen
 2015-05-13 Version initiale
 2015-05-18 Ajout des attributs et de decomposerChaine()
-2015-05-28 Ajout des attributs nseq, forme, tabParametres et MAX_TABPARAMETRES et de la mÃ©thode rafraichirDonnees. Optimation de decomposerChaine().
+2015-05-28 Ajout des attributs nseq, forme, tabParametres et MAX_TABPARAMETRES et de la méthode rafraichirDonnees. Optimation de decomposerChaine().
+2015-05-18 Modification de l'entête
 *******************************************************/
 import java.util.regex.*;
 
 /**
- * Cette classe s'occupe de dÃ©composer la chaÃ®ne de caractÃ¨res reÃ§u du serveur et d'en extraire les paramÃ¨tres.
+ * Cette classe s'occupe de décomposer la chaîne de caractères reçu du serveur et d'en extraire les paramètres.
  * @author Ngoc-Phong Nguyen
  * @date 2015/05/13
  */
 public class DecompChaine {
-	private Pattern p1; // Pattern pour la chaÃ®ne en gÃ©nÃ©ral.
-	private Pattern p2; // Pattern pour les paramÃ¨tres entre les balises.
+	private Pattern p1; // Pattern pour la chaîne en général.
+	private Pattern p2; // Pattern pour les paramètres entre les balises.
 	private Matcher m;
 	private int nseq;
 	private String type;
@@ -44,8 +52,8 @@ public class DecompChaine {
 	}
 	
 	/**
-	 * DÃ©compose la chaÃ®ne de caractÃ¨res reÃ§u du serveur et en extrait les paramÃ¨tres.
-	 * @param chaineIn : La chaÃ®ne de caractÃ¨res reÃ§u du serveur.
+	 * Décompose la chaîne de caractères reçu du serveur et en extrait les paramètres.
+	 * @param chaineIn : La chaîne de caractères reçu du serveur.
 	 */
 	public void decomposerChaine(String chaineIn) {
 		reinitialiserParametres();
@@ -66,7 +74,7 @@ public class DecompChaine {
 	}
 	
 	/**
-	 * RÃ©initialise les paramÃ¨tres Ã  zÃ©ro.
+	 * Réinitialise les paramètres à zéro.
 	 */
 	private void reinitialiserParametres() {
 		nseq = 0;
@@ -75,24 +83,24 @@ public class DecompChaine {
 	}
 	
 	/**
-	 * Accesseur du numÃ©ro de sÃ©quence extraite de la chaÃ®ne.
-	 * @return Le numÃ©ro de sÃ©quence extraite de la chaÃ®ne.
+	 * Accesseur du numéro de séquence extraite de la chaîne.
+	 * @return Le numéro de séquence extraite de la chaîne.
 	 */
 	public int getNseq() {
 		return nseq;
 	}
 	
 	/**
-	 * Accesseur du type de forme extrait de la chaÃ®ne.
-	 * @return Le type de forme extrait de la chaÃ®ne.
+	 * Accesseur du type de forme extrait de la chaîne.
+	 * @return Le type de forme extrait de la chaîne.
 	 */
 	public String getType() {
 		return type;
 	}
 	
 	/**
-	 * Accesseur des paramÃ¨tres entre les balises extraits de la chaÃ®ne.
-	 * @return Les paramÃ¨tres entre les balises extraits de la chaÃ®ne.
+	 * Accesseur des paramètres entre les balises extraits de la chaîne.
+	 * @return Les paramètres entre les balises extraits de la chaîne.
 	 */
 	public int getParametre(int i) {
 		return tabParametres[i];

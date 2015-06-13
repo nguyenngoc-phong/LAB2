@@ -1,13 +1,22 @@
 /******************************************************
 Cours:  LOG121
-Projet: Laboratoire #1
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
 Nom du fichier: Forme.java
 Date crÃ©Ã©: 2015-05-13
+Date dern. modif. 2015-06-12
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Ngoc-Phong Nguyen
 2015-05-13 Version initiale
+2015-06-08 Modification des attributs et des accesseurs
+2015-06-12 Modification de l'entête
 *******************************************************/
 import java.awt.Color;
 import java.awt.Point;
@@ -20,12 +29,9 @@ import java.awt.Point;
 public abstract class Forme {
 	protected int nseq;
 	protected Color couleur;
-	
-	//
 	protected Point coordHG;
 	protected int largeur;
 	protected int hauteur;
-	//
 	
 	/**
 	 * Accesseur du numÃ©ro de sÃ©quence de la forme
@@ -43,7 +49,6 @@ public abstract class Forme {
 		return couleur;
 	}
 	
-	//
 	/**
 	 * Accesseur de la coordonnée du coin en haut à gauche de la forme
 	 * @return La coordonnée du coin en haut à gauche de la forme
@@ -67,8 +72,16 @@ public abstract class Forme {
 	public int getHauteur() {
 		return hauteur;
 	}
-	//
 	
+	/**
+	 * Accesseur abstrait de l'aire de la forme
+	 * @return L'aire de la forme
+	 */
 	public abstract double getAire();
+	
+	/**
+	 * Accesseur abstrait de la plus grande distance entre deux points de la forme
+	 * @return La plus grande distance entre deux points de la forme
+	 */
 	public abstract double getPlusGrandeDistance();
 }

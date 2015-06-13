@@ -1,14 +1,23 @@
 /******************************************************
 Cours:  LOG121
-Projet: Laboratoire #1
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
 Nom du fichier: Rectangle.java
 Date créé: 2015-05-13
+Date dern. modif. 2015-06-12
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Ngoc-Phong Nguyen
 2015-05-13 Version initiale
 2015-05-18 Optimisation de la classe
+2015-06-08 Modification des attributs et des accesseurs
+2015-05-18 Modification de l'entête
 *******************************************************/
 import java.awt.Color;
 import java.awt.Point;
@@ -19,9 +28,10 @@ import java.awt.Point;
  * @date 2015/05/13
  */
 public class Rectangle extends Forme{
-	// private Point coordHG;
-	// private int largeur;
-	// private int hauteur;
+	// Attributs plus utilisés depuis v.1.7 (2015-06-08)
+	@Deprecated private Point coord;
+	@Deprecated private int largeur;
+	@Deprecated private int hauteur;
 	
 	/**
 	 * Constructeur
@@ -45,32 +55,26 @@ public class Rectangle extends Forme{
 	 */
 	@Deprecated
 	public Point getCoord() {
-		// return (Point) coord.clone();
-		return null;
+		return (Point) coord.clone();
 	}
+
 	/**
 	 * Accesseur de la largeur du rectangle
 	 * @return La largeur du rectangle
 	 */
-	/*
 	@Deprecated
-	@Override
 	public int getLargeur() {
 		return largeur;
 	}
-	*/
 	
 	/**
 	 * Accesseur de la hauteur du rectangle
 	 * @return La hauteur du rectangle
 	 */
-	/*
 	@Deprecated
-	@Override
 	public int getHauteur() {
 		return hauteur;
 	}
-	*/
 	
 	/**
 	 * Accesseur de l'aire du rectangle

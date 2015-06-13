@@ -3,15 +3,15 @@ Cours: LOG121
 Session: E2015
 Groupe: 01
 Projet: Laboratoire #2
-Ã‰tudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
 
 
 Professeur : Francis Cardinal
 Nom du fichier: AlgoTri.java
-Date crÃ©Ã©: 2015-06-07
-Date dern. modif. 2015-06-08
+Date créé: 2015-06-07
+Date dern. modif. 2015-06-12
 *******************************************************
-Le code de cette classe est basï¿½ sur l'exemple d'algorithme de tri de liste chaï¿½nï¿½e sur Internet de Program Creek sur la page suivante :
+Le code de cette classe est basé sur l'exemple d'algorithme de tri de liste chaînée sur Internet de Program Creek sur la page suivante :
 
 http://www.programcreek.com/2012/11/leetcode-solution-merge-sort-linkedlist-in-java/
 
@@ -20,17 +20,18 @@ Historique des modifications
 *******************************************************
 *@author Ngoc-Phong Nguyen
 2013-06-07 Version initiale
-2013-06-08 Ajout des commentaires
+2013-06-08 Ajout de l'entête et des commentaires
+2013-06-12 Ajout du tri par type de forme et par l'ordre original. Correction et optimisation de la classe.
 *******************************************************/
 
 /**
- * Cette classe s'occupe de trier les noeuds selon les paramÃ¨tres des formes contenues Ã  l'intÃ©rieur.
+ * Cette classe s'occupe de trier les noeuds selon les paramètres des formes contenues à  l'intérieur.
  * @author Ngoc-Phong Nguyen
  * @date 2015/06/07
  */
 public class AlgoTri {
 	private String choixTri;
-	private boolean triInverse; // BoolÃ©en permettant de dÃ©terminer si le tri est en ordre dÃ©croissant ou non.
+	private boolean triInverse; // Booléen permettant de déterminer si le tri est en ordre décroissant ou non.
 	
 	/**
 	 * Constructeur
@@ -41,26 +42,26 @@ public class AlgoTri {
 	}
 	
 	/**
-	 * Trie les noeuds selon le choix de tri envoyÃ© en paramÃ¨tres.
-	 * Elle divise la liste chaÃ®nÃ©e reÃ§u en paramÃ¨tres en noeud individuel et les compare entre elles par la suite.
-	 * @param noeudTete : noeud-tÃªte de la liste chaÃ®nÃ©e
+	 * Trie les noeuds selon le choix de tri envoyé en paramètres.
+	 * Elle divise la liste chaînée reçu en paramètres en noeud individuel et les compare entre elles par la suite.
+	 * @param noeudTete : noeud-tête de la liste chaînée
 	 * @param choixTri : type de tri choisi
-	 * @param triInverse : boolÃ©en dÃ©terminant si le tri est dÃ©croissant ou non.
+	 * @param triInverse : booléen déterminant si le tri est décroissant ou non.
 	 * @return
 	 */
 	public Noeud trier(Noeud noeudTete, String choixTri, boolean triInverse) {
-		// Initialisation de choixTri et triInverse seulement lors du premier appel de la mÃ©thode trier().
+		// Initialisation de choixTri et triInverse seulement lors du premier appel de la méthode trier().
 		if (choixTri != null) {
 			this.choixTri = choixTri;
 			this.triInverse = triInverse;
 		}
 		
-		// Si le noeud reÃ§u en paramÃ¨tre est nul ou qu'il n'a pas de noeud suivant, retourner la noeud.
+		// Si le noeud reçu en paramètre est nul ou qu'il n'a pas de noeud suivant, retourner la noeud.
 		if (noeudTete == null || noeudTete.noeudSuivant() == null) {
 			return noeudTete;
 		}
 		
-		// Comptabilise le nombre de noeuds total dans la liste chaÃ®nÃ©e du noeud reÃ§u en paramÃ¨tres.
+		// Comptabilise le nombre de noeuds total dans la liste chaînée du noeud reçu en paramètres.
 		int nbNoeuds = 0;
 		Noeud n1 = noeudTete;
 		while (n1 != null) {
@@ -68,7 +69,7 @@ public class AlgoTri {
 			n1 = n1.noeudSuivant();
 		}
 		
-		// DÃ©termine oÃ¹ est le milieu de la liste chaÃ®nÃ©e et la divise en deux en enlevant la rÃ©fÃ©rence de la partie de gauche Ã  celle de droite.
+		// Détermine où est le milieu de la liste chaînée et la divise en deux en enlevant la référence de la partie de gauche à celle de droite.
 		int milieu = nbNoeuds / 2;
 		int i = 0;
 		Noeud n2 = noeudTete, gauche = noeudTete, droite = null;
@@ -84,50 +85,50 @@ public class AlgoTri {
 		}
 		
 		
-		// Redivise la partie de gauche et celle de droite en plus petites parties en rÃ©appellant rÃ©cursivement la mÃ©thode trier().
+		// Redivise la partie de gauche et celle de droite en plus petites parties en réappellant récursivement la méthode trier().
 		gauche = trier(gauche, null, false);
 		droite = trier(droite, null, false);
 		
-		// Fusionne la partie de gauche avec la partie de droite et les rÃ©arrange selon le choix de tri en appelant la mÃ©thode echangerNoeuds().
+		// Fusionne la partie de gauche avec la partie de droite et les réarrange selon le choix de tri en appelant la méthode echangerNoeuds().
 		Noeud noeudTrie = echangerNoeuds(gauche, droite);
 		
 		return noeudTrie;
 	}
 	
 	/**
-	 * Fusionne deux listes chaÃ®nÃ©es ensemble en rÃ©arrangeant les rÃ©fÃ©rences au noeud suivant dans les noeuds eux-mÃªme.
-	 * @param gauche : la premiÃ¨re liste chaÃ®nÃ©e Ã  fusionner.
-	 * @param droite : la deuxiÃ¨me liste chaÃ®nÃ©e Ã  fusionner.
+	 * Fusionne deux listes chaînées ensemble en réarrangeant les références au noeud suivant dans les noeuds eux-même.
+	 * @param gauche : la première liste chaînée à fusionner.
+	 * @param droite : la deuxième liste chaînée à fusionner.
 	 * @return
 	 */
 	private Noeud echangerNoeuds(Noeud gauche, Noeud droite) {
-		// Initialise deux noeuds temporaires : l'une pour garder en mÃ©moire la liste chaÃ®nÃ©e triÃ©e et l'autre pour parcourir celle-ci.
+		// Initialise deux noeuds temporaires : l'une pour garder en mémoire la liste chaînée triée et l'autre pour parcourir celle-ci.
 		Noeud noeudTete = new Noeud(-1, null);
 		Noeud n = noeudTete;
 		
 		// Boucle pour fusionner les deux noeuds tant et aussi longtemps que l'une d'entre elles n'est pas nulle.
 		while (gauche != null && droite != null) {
-			// Comparer les noeuds-tÃªte de la partie de gauche et celle de droite
+			// Comparer les noeuds-tête de la partie de gauche et celle de droite
 			int resultat = comparerNoeuds(gauche, droite);
 			/*
-			 *  Si la partie de gauche est plus petite que celle de droite ou que celle-ci est plus grande que celle de droite mais que le tri est en ordre dÃ©croissant,
-			 *  ajoute le noeud-tÃªte de la partie de gauche Ã  la fin de la liste chaÃ®nÃ©e triÃ©e et avance sa liste chaÃ®nÃ©e d'un noeud.
+			 *  Si la partie de gauche est plus petite que celle de droite ou que celle-ci est plus grande que celle de droite mais que le tri est en ordre décroissant,
+			 *  ajoute le noeud-tête de la partie de gauche à la fin de la liste chaînée triée et avance sa liste chaînée d'un noeud.
 			 */
 			if ((resultat == -1 && !triInverse) || (resultat == 1 && triInverse)) {
 				n.setNoeudSuivant(new Noeud(gauche.getNumNoeud(), gauche.getForme()));
 				gauche = gauche.noeudSuivant();
 			}
 			/*
-			 *  Si la partie de droite est plus petite que celle de gauche ou que celle-ci est plus grande que celle de gauche mais que le tri est en ordre dÃ©croissant,
-			 *  ajoute le noeud-tÃªte de la partie de droite Ã  la fin de la liste chaÃ®nÃ©e triÃ©e et avance sa liste chaÃ®nÃ©e d'un noeud.
+			 *  Si la partie de droite est plus petite que celle de gauche ou que celle-ci est plus grande que celle de gauche mais que le tri est en ordre décroissant,
+			 *  ajoute le noeud-tête de la partie de droite à la fin de la liste chaînée triée et avance sa liste chaînée d'un noeud.
 			 */
 			else if ((resultat == 1 && !triInverse) || (resultat == -1 && triInverse)){
 				n.setNoeudSuivant(new Noeud(droite.getNumNoeud(), droite.getForme()));
 				droite = droite.noeudSuivant();
 			}
 			/*
-			 *  Dans le cas oÃ¹ la partie de gauche est Ã©gale Ã  la partie de droite,
-			 *  ajoute le noeud-tÃªte de la partie de gauche puis celle de la partie de droite Ã  la fin de la liste chaÃ®nÃ©e triÃ©e et avance leurs listes chaÃ®nÃ©es d'un noeud.
+			 *  Dans le cas où la partie de gauche est égale à la partie de droite,
+			 *  ajoute le noeud-tête de la partie de gauche puis celle de la partie de droite à la fin de la liste chaînée triée et avance leurs listes chaînées d'un noeud.
 			 */
 			else {
 				n.setNoeudSuivant(new Noeud(gauche.getNumNoeud(), gauche.getForme()));
@@ -136,35 +137,35 @@ public class AlgoTri {
 				gauche = gauche.noeudSuivant();
 				droite = droite.noeudSuivant();
 			}
-			// Avance l'itÃ©rateur de la liste chaÃ®nÃ©e triÃ©e d'un noeud.
+			// Avance l'itérateur de la liste chaînée triée d'un noeud.
 			n = n.noeudSuivant();
 		}
 
-		// Ajoute ce qui reste de la partie de droite Ã  la fin chaÃ®nÃ©e triÃ©e si la partie de gauche est nulle.
+		// Ajoute ce qui reste de la partie de droite à la fin chaînée triée si la partie de gauche est nulle.
 		if (gauche == null) {
 			n.setNoeudSuivant(droite);
 		}
-		// Ajoute ce qui reste de la partie de gauche Ã  la fin chaÃ®nÃ©e triÃ©e si la partie de droite est nulle.
+		// Ajoute ce qui reste de la partie de gauche à la fin chaînée triée si la partie de droite est nulle.
 		else {
 			n.setNoeudSuivant(gauche);
 		}
 		
-		// Retourne la liste chainÃ©e triÃ©e selon le deuxiÃ¨me noeud puisque le premier ne servait qu'Ã  conserver la liste.
+		// Retourne la liste chainée triée selon le deuxième noeud puisque le premier ne servait qu'à conserver la liste.
 		return noeudTete.noeudSuivant();
 	}
 	
 	/**
-	 * Comparer les formes contenues dans deux noeuds entre eux selon le tri choisi et retourne le rÃ©sulat.
-	 * @param gauche : Le premier noeud Ã  comparer.
-	 * @param droite : Le deuxiÃ¨me noeud Ã  comparer.
-	 * @return -1 si l'attribut de la forme du premier noeud est plus petit que celui du deuxiÃ¨me, 1 si c'est l'inverse et 0 si les deux attributs sont Ã©gals.
+	 * Comparer les formes contenues dans deux noeuds entre eux selon le tri choisi et retourne le résulat.
+	 * @param gauche : Le premier noeud à comparer.
+	 * @param droite : Le deuxième noeud à comparer.
+	 * @return -1 si l'attribut de la forme du premier noeud est plus petit que celui du deuxième, 1 si c'est l'inverse et 0 si les deux attributs sont égals.
 	 */
 	private int comparerNoeuds(Noeud gauche, Noeud droite) {
 		// Cherche les formes contenues dans les deux noeuds.
 		Forme forme1 = gauche.getForme();
 		Forme forme2 = droite.getForme();
 		
-		// Compare le numÃ©ro de sÃ©quence des formes.
+		// Compare le numéro de séquence des formes.
 		if(choixTri.equals("TriNseq")) {
 			if(forme1.getNseq() < forme2.getNseq()) {
 				return -1;
@@ -182,35 +183,46 @@ public class AlgoTri {
 				return 1;
 			}
 		}
-		// Compare le type de forme entre deux points des formes.
+		// Compare le type de forme entre deux formes.
 		else if(choixTri.equals("TriTypeForme")) {
+			// Si la 1ere forme est carré et l'autre ne l'est pas, retourne -1.
 			if(forme1 instanceof Carre && !(forme2 instanceof Carre)) {
 				return -1;
 			}
+			// Si la 1ere forme est rectangulaire.
 			else if(forme1 instanceof Rectangle && !(forme2 instanceof Rectangle)) {
+				// Si la 2e forme est carré, retourne 1.
 				if(forme2 instanceof Carre) {
 					return 1;
 				}
+				// Autrement, si la 2e forme n'est pas carré, retourne -1.
 				else {
 					return -1;
 				}
 			}
+			// Si la 1ere forme est circulaire.
 			else if(forme1 instanceof Cercle && !(forme2 instanceof Cercle)) {
+				// Si la 2e forme est carré ou rectangulaire, retourne 1.
 				if(forme2 instanceof Carre || forme2 instanceof Rectangle) {
 					return 1;
 				}
+				// Autrement, si la 2e forme n'est pas carré ou rectangulaire, retourne -1.
 				else {
 					return -1;
 				}
 			}
+			// Si la 1ere forme est elliptique.
 			else if(forme1 instanceof Ovale && !(forme2 instanceof Ovale)) {
+				// Si la 2e forme est linéaire, retourne -1.
 				if(forme2 instanceof Ligne) {
 					return -1;
 				}
+				// Autrement, si la 2e forme n'est pas linéaire, retourne 1.
 				else {
 					return 1;
 				}
 			}
+			// Autrement, si la 1ere forme est linéaire et l'autre ne l'est pas, retourne 1.
 			else if(!(forme2 instanceof Ligne)) {
 				return 1;
 			}
@@ -242,7 +254,7 @@ public class AlgoTri {
 				return 1;
 			}
 		}
-		// Compare le numéro des noeuds.
+		// Compare les numéros des noeuds.
 		else if(choixTri.equals("TriOriginal")) {
 			if(gauche.getNumNoeud() < droite.getNumNoeud()) {
 				return -1;
@@ -251,7 +263,7 @@ public class AlgoTri {
 				return 1;
 			}
 		}
-		// Retourne 0 si les attributs des deux formes sont Ã©gals.
+		// Retourne 0 si les attributs des deux formes sont égals.
 		return 0;
 	}
 }

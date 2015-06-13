@@ -1,13 +1,22 @@
 /******************************************************
 Cours:  LOG121
-Projet: Laboratoire #1
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
 Nom du fichier: Ovale.java
 Date créé: 2015-05-13
+Date dern. modif. 2015-06-12
 *******************************************************
 Historique des modifications
 *******************************************************
 *@author Ngoc-Phong Nguyen
 2015-05-13 Version initiale
+2015-06-08 Modification des attributs et des accesseurs
+2015-05-18 Modification de l'entête
 *******************************************************/
 import java.awt.Color;
 import java.awt.Point;
@@ -18,9 +27,10 @@ import java.awt.Point;
  * @date 2015/05/13
  */
 public class Ovale extends Forme{
-	// private Point centre;
-	// private int rayonH;
-	// private int rayonV;
+	// Attributs plus utilisés depuis v.1.7 (2015-06-08)
+	@Deprecated private Point centre;
+	@Deprecated private int rayonH;
+	@Deprecated private int rayonV;
 	
 	/**
 	 * Constructeur
@@ -32,9 +42,9 @@ public class Ovale extends Forme{
 	 */
 	public Ovale(int nseq, int centreX, int centreY, int rayonH, int rayonV) {
 		this.nseq = nseq;
-		// this.centre = new Point(centreX, centreY);
-		// this.rayonH = rayonH;
-		// this.rayonV = rayonV;
+		this.centre = new Point(centreX, centreY);
+		this.rayonH = rayonH;
+		this.rayonV = rayonV;
 		this.coordHG = new Point(centreX - rayonH, centreY - rayonV);
 		this.largeur = 2 * rayonH;
 		this.hauteur = 2 * rayonV;
@@ -47,8 +57,7 @@ public class Ovale extends Forme{
 	 */
 	@Deprecated
 	public Point getCentre() {
-		// return (Point) centre.clone();
-		return null;
+		return (Point) centre.clone();
 	}
 
 	/**
@@ -57,8 +66,7 @@ public class Ovale extends Forme{
 	 */
 	@Deprecated
 	public int getRayonH() {
-		// return rayonH;
-		return 0;
+		return rayonH;
 	}
 
 	/**
@@ -67,27 +75,8 @@ public class Ovale extends Forme{
 	 */
 	@Deprecated
 	public int getRayonV() {
-		// return rayonV;
-		return 0;
+		return rayonV;
 	}
-
-	/*
-	@Deprecated
-	@Override
-	public int getLargeur() {
-		// return 2 * rayonH;
-		return 0;
-	}
-	*/
-
-	/*
-	@Deprecated
-	@Override
-	public int getHauteur() {
-		// return 2 * rayonV;
-		return 0;
-	}
-	*/
 	
 	/**
 	 * Accesseur de l'aire de l'ovale
