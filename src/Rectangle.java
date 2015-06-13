@@ -1,0 +1,96 @@
+/******************************************************
+Cours:  LOG121
+Session: E2015
+Groupe: 01
+Projet: Laboratoire #2
+Étudiant(e)s: Carole Fabeleu, Richard Kantchil et Ngoc-Phong Nguyen
+
+
+Professeur : Francis Cardinal
+Nom du fichier: Rectangle.java
+Date créé: 2015-05-13
+Date dern. modif. 2015-06-12
+*******************************************************
+Historique des modifications
+*******************************************************
+*@author Ngoc-Phong Nguyen
+2015-05-13 Version initiale
+2015-05-18 Optimisation de la classe
+2015-06-08 Modification des attributs et des accesseurs
+2015-05-18 Modification de l'entête
+*******************************************************/
+import java.awt.Color;
+import java.awt.Point;
+
+/**
+ * Cette classe s'occupe des formes rectangulaires.
+ * @author Ngoc-Phong Nguyen
+ * @date 2015/05/13
+ */
+public class Rectangle extends Forme{
+	// Attributs plus utilisés depuis v.1.7 (2015-06-08)
+	@Deprecated private Point coord;
+	@Deprecated private int largeur;
+	@Deprecated private int hauteur;
+	
+	/**
+	 * Constructeur
+	 * @param nseq : numéro de séquence du rectangle
+	 * @param x1 : coordonnée x du coin en haut à gauche du rectangle
+	 * @param y1 : coordonnée y du coin en haut à gauche du rectangle
+	 * @param x2 : coordonnée x du coin en bas à droite du rectangle
+	 * @param y2 : coordonnée y du coin en bas à droite du rectangle
+	 */
+	public Rectangle(int nseq, int x1, int y1, int x2, int y2) {
+		this.nseq = nseq;
+		this.coordHG = new Point(x1, y1);
+		this.largeur = x2 - x1;
+		this.hauteur = y2 - y1;
+		this.couleur = Color.CYAN;
+	}
+	
+	/**
+	 * Accesseur de la coordonnée(x,y) du coin en haut à gauche du rectangle
+	 * @return La coordonnée(x,y) du coin en haut à gauche du rectangle
+	 */
+	@Deprecated
+	public Point getCoord() {
+		return (Point) coord.clone();
+	}
+
+	/**
+	 * Accesseur de la largeur du rectangle
+	 * @return La largeur du rectangle
+	 */
+	@Deprecated
+	public int getLargeur() {
+		return largeur;
+	}
+	
+	/**
+	 * Accesseur de la hauteur du rectangle
+	 * @return La hauteur du rectangle
+	 */
+	@Deprecated
+	public int getHauteur() {
+		return hauteur;
+	}
+	
+	/**
+	 * Accesseur de l'aire du rectangle
+	 * @return L'aire du rectangle
+	 */
+	@Override
+	public double getAire() {
+		return largeur * hauteur;
+	}
+	
+	/**
+	 * Accesseur de la plus grande distance entre deux points du rectangle
+	 * @return La plus grande distance entre deux points du rectangle
+	 */
+	@Override
+	public double getPlusGrandeDistance() {
+		return Math.sqrt(Math.pow(largeur, 2) + Math.pow(hauteur, 2));
+	}
+}
