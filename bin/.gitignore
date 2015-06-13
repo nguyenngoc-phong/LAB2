@@ -1,3 +1,4 @@
+/.DS_Store
 /AlgoTri.class
 /ApplicationFormes.class
 /Carre.class
@@ -15,6 +16,10 @@
 /LangueConfig.class
 /Ligne.class
 /MenuFenetre$1.class
+/MenuFenetre$10.class
+/MenuFenetre$11.class
+/MenuFenetre$12.class
+/MenuFenetre$13.class
 /MenuFenetre$2.class
 /MenuFenetre$3.class
 /MenuFenetre$4.class
@@ -27,8 +32,7 @@
 /Noeud.class
 /Ovale.class
 /Rectangle.class
-/MenuFenetre$10.class
-/MenuFenetre$11.class
-/MenuFenetre$12.class
-/MenuFenetre$13.class
+/app_en.properties
+/app_fr.properties
+/prefs.properties
 /MenuFenetre$14.class

@@ -47,7 +47,7 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 	private static final char 	MENU_FICHIER_OBTENIR_FORMES_TOUCHE_RACC = KeyEvent.VK_O;
 	private static final String
 			MENU_FICHIER_TITRE = "app.frame.menus.file.title",
-			MENU_FICHIER_OBTENIR_FORME = "app.frame.menus.file.form",
+			MENU_FICHIER_OBTENIR_FORMES = "app.frame.menus.file.form",
 			
 			
 			MENU_ORDRE_TITRE = "app.frame.menus.order.title",
@@ -111,13 +111,13 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 	 *  @date:   2015-06-05 
 	 */
 	protected void addMenuFichier() {
-		fichier = creerMenu(MENU_FICHIER_TITRE, new String[] { MENU_FICHIER_QBTENIR_FORME });
+		fichier = creerMenu(MENU_FICHIER_TITRE, new String[] { MENU_FICHIER_OBTENIR_FORMES });
 		
 		obtenirFormesMenuItem = fichier.getItem(0);
 		obtenirFormesMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				comm.obtenirFormes(); // Appelle méthode dans commBase pour obtenir les formes
-				rafraichirMenus(null);
+				rafraichirMenus(' ');
 			}
 			
 		});
@@ -282,7 +282,7 @@ public class MenuFenetre extends JMenuBar implements PropertyChangeListener{
 		}
 
 		if(etatMenuFenetre == 'F') { // Met le curseur des RadioButtons sur le tri original a la fin de l'obtention de formes
-			boutonTriOriginal.isSelected(true);
+			boutonTriOriginal.setSelected(true);
 		}
 	}
 	

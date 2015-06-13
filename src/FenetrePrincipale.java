@@ -88,7 +88,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 			fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), false); // Redessine les formes dans la fenêtre FenetreFormes selon les coordonn�es des formes.
 		}
 		else if(arg0.getPropertyName().equals("TRI")) {
-			gestionFormes.trierNoeuds((String) arg0.getOldValue(), (boolean) arg0.getNewValue()); //Appliquer un tri selon le type reçu en paramètre
+			gestionFormes.trierNoeuds((String) arg0.getOldValue(), (Boolean) arg0.getNewValue()); //Appliquer un tri selon le type reçu en paramètre
 			
 			if(!arg0.getOldValue().equals("TriOriginal")) {
 				fenetreFormes.dessinerFormes(gestionFormes.getNoeudTete(), true); // Redessine les formes dans la fenêtre FenetreFormes selon le tri
